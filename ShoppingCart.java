@@ -18,10 +18,12 @@ public class ShoppingCart {
 		String itemToBuy = scan.nextLine();
 		scan.close();
 		if(Store.products.containsKey(itemToBuy)) {
-			int cost = Store.products.get(itemToBuy);
-			wallet.setBalance(wallet.getBalance() - cost) ;
-			pocket.addProduct(itemToBuy);
-			pocket.close();
+			if(wallet.getBalance() >= Store.products.get(itemToBuy)) {
+				int cost = Store.products.get(itemToBuy);
+				wallet.setBalance(wallet.getBalance() - cost);
+				pocket.addProduct(itemToBuy);
+				pocket.close();
+			}
 		} else {
 			System.out.println("Product does not exist");
 		}

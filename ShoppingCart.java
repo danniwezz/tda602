@@ -30,6 +30,7 @@ public class ShoppingCart {
 				pocket.close();
 			}
 			} else {
+
 			System.out.println("Product does not exist");
 		}
 		System.out.print("Your current balance is now: " + wallet.getBalance());

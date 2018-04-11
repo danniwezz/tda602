@@ -2,4 +2,3 @@ book
 car
 car
 car
-pen

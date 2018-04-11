@@ -1,20 +1,30 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 
 public class Wallet {
    /**
     * The RandomAccessFile of the wallet file
     */  
-   private RandomAccessFile file;
-
+    private RandomAccessFile file;
+    private FileChannel channel;
+    private FileLock lock;
    /**
     * Creates a Wallet object
     *
     * A Wallet object interfaces with the wallet RandomAccessFile
     */
     public Wallet () throws Exception {
-	this.file = new RandomAccessFile(new File("wallet.txt"), "rw");
+
+        try{
+            this.file = new RandomAccessFile(new File("wallet.txt"), "rw");
+            this.channel = file.getChannel();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
    /**
@@ -23,7 +33,7 @@ public class Wallet {
     * @return                   The content of the wallet file as an integer
     */
     public int getBalance() throws IOException {
-	this.file.seek(0);
+	    this.file.seek(0);
 	return Integer.parseInt(this.file.readLine());
     }
 
@@ -36,6 +46,27 @@ public class Wallet {
 	this.file.setLength(0);
 	String str = new Integer(newBalance).toString()+'\n'; 
 	this.file.writeBytes(str); 
+    }
+
+    public void safeWithdraw(int valueToWithdraw) throws Exception {
+
+        try{
+            lock = this.channel.lock();
+            this.file.seek(0);
+            int balance = Integer.parseInt(this.file.readLine());
+            this.file.setLength(0);
+
+            String str = new Integer(balance - valueToWithdraw).toString()+'\n';
+            this.file.writeBytes(str);
+            if(lock != null){
+                lock.release();
+            }
+        }catch(OverlappingFileLockException e){
+            //file is already locked.
+        }
+
+
+
     }
 
    /**

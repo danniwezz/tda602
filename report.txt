@@ -1,9 +1,7 @@
 Part 0: your ShoppingCart.java with clear instructions for compile it and run it.
-
-
+Compile the javafiles and the classfiles, we used intelliJ.
 
 Part 1:
-
 What is the shared resource? Who is sharing it?
 The text files:
 Pocket and wallet
@@ -18,12 +16,27 @@ If two instances (A) and (B), are trying to make a purchase, and A is trying to 
 to buy a pen. A and B is executing the program until they both get to set.balance(). Where both A and B run the function wallet.getBalance(), which returns 30 000 for both A and B. A then continue the execution, adjusting the balance to 0, and adding the car to the pocket. B then continue its execution, setting the balance to 29960, and adding the pen to the pocket. We have now bought a car and a pen for the super low price of 40dollar. And this is a problem.
 
 Provide the program output and result, explaining the interleaving to achieve them.
-
-
-
+SEE LOG.TXT
 
 Part 2: the code that secures buggy API
+This is the code snippet that prevent the problems mentioned above. For more information about
+declarations and initalizations, see wallet.java, shoppingcart.java.
 
+ public void safeWithdraw(int valueToWithdraw) throws Exception {
 
+            lock = this.channel.lock();
+            this.file.seek(0);
+            int balance = Integer.parseInt(this.file.readLine());
+            this.file.setLength(0);
+            if(balance - valueToWithdraw < 0){
+            throw new IllegalArgumentException("To low balance");
+            }
+
+            String str = new Integer(balance - valueToWithdraw).toString()+'\n';
+            this.file.writeBytes(str);
+            if(lock != null){
+                lock.release();
+            }
+    }
 
 

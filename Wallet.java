@@ -63,9 +63,6 @@ public class Wallet {
             if(lock != null){
                 lock.release();
             }
-
-
-
     }
 
    /**

@@ -1,0 +1,29 @@
+Part 0: your ShoppingCart.java with clear instructions for compile it and run it.
+
+
+
+Part 1:
+
+What is the shared resource? Who is sharing it?
+The text files:
+Pocket and wallet
+
+What is the root of the problem?
+Every user accesses the same wallet and the same pocket, and there is no mutual exclusion implemented
+in this program. There is some critical sections in the shoppingcart.java that needs some kind of 
+protection to ensure mutual exclusion.
+
+Explain in detail how you can attack this system.
+If two instances (A) and (B), are trying to make a purchase, and A is trying to buy a car, B is trying
+to buy a pen. A and B is executing the program until they both get to set.balance(). Where both A and B run the function wallet.getBalance(), which returns 30 000 for both A and B. A then continue the execution, adjusting the balance to 0, and adding the car to the pocket. B then continue its execution, setting the balance to 29960, and adding the pen to the pocket. We have now bought a car and a pen for the super low price of 40dollar. And this is a problem.
+
+Provide the program output and result, explaining the interleaving to achieve them.
+
+
+
+
+Part 2: the code that secures buggy API
+
+
+
+

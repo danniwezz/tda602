@@ -16,7 +16,7 @@ If two instances (A) and (B), are trying to make a purchase, and A is trying to 
 to buy a pen. A and B is executing the program until they both get to set.balance(). Where both A and B run the function wallet.getBalance(), which returns 30 000 for both A and B. A then continue the execution, adjusting the balance to 0, and adding the car to the pocket. B then continue its execution, setting the balance to 29960, and adding the pen to the pocket. We have now bought a car and a pen for the super low price of 40dollar. And this is a problem.
 
 Provide the program output and result, explaining the interleaving to achieve them.
-SEE LOG.TXT
+See Log.txt
 
 Part 2: the code that secures buggy API
 This is the code snippet that prevent the problems mentioned above. For more information about
@@ -38,5 +38,8 @@ declarations and initalizations, see wallet.java, shoppingcart.java.
                 lock.release();
             }
     }
+
+Were there other APIs suffering from possible races? If so, please explain them and update the APIs to eliminate any race problems.
+Yes, in the pocket class you could pay for two items but only one would end up in your pocket. To fix this we used a lock in a similar fasion as with safeWithdraw(), only letting one execution access and write to pocket.txt at a time. 
 
 

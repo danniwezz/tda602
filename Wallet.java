@@ -50,20 +50,19 @@ public class Wallet {
 
     public void safeWithdraw(int valueToWithdraw) throws Exception {
 
-        try{
             lock = this.channel.lock();
             this.file.seek(0);
             int balance = Integer.parseInt(this.file.readLine());
             this.file.setLength(0);
+            if(balance - valueToWithdraw < 0){
+            throw new IllegalArgumentException("To low balance");
+            }
 
             String str = new Integer(balance - valueToWithdraw).toString()+'\n';
             this.file.writeBytes(str);
             if(lock != null){
                 lock.release();
             }
-        }catch(OverlappingFileLockException e){
-            //file is already locked.
-        }
 
 
 

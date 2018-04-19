@@ -1,4 +1,0 @@
-book
-car
-car
-car

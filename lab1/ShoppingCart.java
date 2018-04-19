@@ -24,8 +24,8 @@ public class ShoppingCart {
 				System.exit(0);
 			}
 			else {
-				//wallet.setBalance(wallet.getBalance() - cost);
-				wallet.safeWithdraw(cost);
+				wallet.setBalance(wallet.getBalance() - cost);
+				//wallet.safeWithdraw(cost);
 				pocket.addProduct(itemToBuy);
 				pocket.close();
 			}

@@ -1,0 +1,42 @@
+How to replicate:
+1. Use setBalance instead of safewidrawal on line 28. 
+2. Set breakpoint line 22 at if(cost > wallet.getBalance()).
+3. Start two exections
+4. Write car and pen in the two different executions
+5. Step to getBalance() in wallet.setBalance(wallet.getBalance() - cost) for the pen execution
+6. Finish the execution with car input
+7. Finish the execution with pen input
+8. You should now have 29960 in your wallet but a car and a pen in your pocket
+
+
+Run 1:
+Connected to the target VM, address: '127.0.0.1:50255', transport: 'socket'
+Your balance 30000
+car	30000
+book	100
+pen	40
+candies	1
+
+What do you want to buy?:car
+Your current balance is now: 0
+
+Disconnected from the target VM, address: '127.0.0.1:50255', transport: 'socket'
+
+Process finished with exit code 0
+Run 2:
+
+
+
+Connected to the target VM, address: '127.0.0.1:50250', transport: 'socket'
+Your balance 30000
+car	30000
+book	100
+pen	40
+candies	1
+
+What do you want to buy?:pen
+Your current balance is now: 29960
+Disconnected from the target VM, address: '127.0.0.1:50250', transport: 'socket'
+
+Process finished with exit code 0
+

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:lab1/pocket.txt
 book
 car
 car
@@ -5,3 +6,5 @@ car
 pen
 pen
 car
+=======
+>>>>>>> f4670e175c7ac68f1c0cc0b9e673b6b3283cc170:pocket.txt
